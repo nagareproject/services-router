@@ -23,7 +23,7 @@ class Router(plugin.Plugin):
     def create_dispatch_args(request, response, **params):
         return request.path_info, request.method, request, response
 
-    def __call__(self, o, url, method, request, response):
+    def __call__(self, o, url, method, request, response, *args):
         mapper = getattr(o, 'nagare_urls_mapper', None)
         if mapper is None:
             raise exc.HTTPNotFound()
@@ -36,7 +36,8 @@ class Router(plugin.Plugin):
         if match_dict is None:
             raise exc.HTTPNotFound()
 
-        return match_dict.pop('action')(o, url, method, request, response, **match_dict)
+        args += (url, method, request, response)
+        return match_dict.pop('action')(o, *args, **match_dict)
 
 
 def route_for(cls, url='', methods=('GET', 'HEAD'), validate=None, **kw):
