@@ -10,7 +10,7 @@
 # --
 
 import routes
-from webob import exc
+from webob.exc import HTTPNotFound
 from nagare.services import plugin
 
 
@@ -26,7 +26,7 @@ class Router(plugin.Plugin):
     def __call__(self, o, url, method, request, response, *args):
         mapper = getattr(o, 'nagare_urls_mapper', None)
         if mapper is None:
-            raise exc.HTTPNotFound()
+            raise HTTPNotFound()
 
         match_dict = mapper.match('/' + url.strip('/'), {
             'REQUEST_METHOD': method,
@@ -34,7 +34,7 @@ class Router(plugin.Plugin):
         })
 
         if match_dict is None:
-            raise exc.HTTPNotFound()
+            raise HTTPNotFound()
 
         args += (url, method, request, response)
         return match_dict.pop('action')(o, *args, **match_dict)
