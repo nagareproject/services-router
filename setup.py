@@ -29,10 +29,7 @@ setup(
     zip_safe=False,
     setup_requires=['setuptools_scm'],
     use_scm_version=True,
-    install_requires=[
-        'webob', 'routes',
-        'nagare-services', 'nagare-server-http'
-    ],
+    install_requires=['webob', 'routes', 'nagare-services'],
     entry_points='''
         [nagare.services]
         router = nagare.services.router:Router
