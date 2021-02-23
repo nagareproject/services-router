@@ -1,7 +1,7 @@
 # Encoding: utf-8
 
 # --
-# Copyright (c) 2008-2020 Net-ng.
+# Copyright (c) 2008-2021 Net-ng.
 # All rights reserved.
 #
 # This software is licensed under the BSD License, as described in
@@ -28,11 +28,7 @@ class Router(plugin.Plugin):
         if mapper is None:
             raise HTTPNotFound()
 
-        match_dict = mapper.match('/' + url.strip('/'), {
-            'REQUEST_METHOD': method,
-            'request': request
-        })
-
+        match_dict = mapper.match('/' + url.strip('/'), {'REQUEST_METHOD': method, 'request': request})
         if match_dict is None:
             raise HTTPNotFound()
 
