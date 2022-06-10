@@ -26,11 +26,11 @@ class Router(plugin.Plugin):
     def __call__(self, o, url, method, request, response, *args):
         mapper = getattr(o, 'nagare_urls_mapper', None)
         if mapper is None:
-            raise HTTPNotFound()
+            raise HTTPNotFound(url)
 
         match_dict = mapper.match('/' + url.strip('/'), {'REQUEST_METHOD': method, 'request': request})
         if match_dict is None:
-            raise HTTPNotFound()
+            raise HTTPNotFound(url)
 
         args += (url, method, request, response)
         return match_dict.pop('action')(o, *args, **match_dict)
