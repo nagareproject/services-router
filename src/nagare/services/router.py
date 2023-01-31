@@ -1,7 +1,7 @@
 # Encoding: utf-8
 
 # --
-# Copyright (c) 2008-2022 Net-ng.
+# Copyright (c) 2008-2023 Net-ng.
 # All rights reserved.
 #
 # This software is licensed under the BSD License, as described in
@@ -9,16 +9,17 @@
 # this distribution.
 # --
 
+from nagare.services import plugin
 import routes
 from webob.exc import HTTPNotFound
-from nagare.services import plugin
 
 
 class Router(plugin.Plugin):
-    """A service wrapped around the router
+    """A service wrapped around the router.
 
     Being now a service, the router can be injected
     """
+
     @staticmethod
     def create_dispatch_args(request, response, **params):
         return request.path_info, request.method, request, response
@@ -37,7 +38,7 @@ class Router(plugin.Plugin):
 
 
 def route_for(cls, url='', methods=('GET', 'HEAD'), validate=None, **kw):
-    """The routing decorator"""
+    """The routing decorator."""
 
     def _(f):
         cls.nagare_urls_mapper = getattr(cls, 'nagare_urls_mapper', None) or routes.Mapper(register=False)
@@ -49,13 +50,7 @@ def route_for(cls, url='', methods=('GET', 'HEAD'), validate=None, **kw):
         if validate:
             conditions['function'] = lambda params, match_dict: validate(params['request'], match_dict)
 
-        cls.nagare_urls_mapper.connect(
-            None,
-            '/' + url.strip('/'),
-            action=f,
-            conditions=conditions,
-            **kw
-        )
+        cls.nagare_urls_mapper.connect(None, '/' + url.strip('/'), action=f, conditions=conditions, **kw)
 
         return f
 

@@ -1,0 +1,2 @@
+[nagare.services]
+router = nagare.services.router:Router
