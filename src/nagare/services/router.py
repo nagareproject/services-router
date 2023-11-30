@@ -45,7 +45,7 @@ def route_for(cls, url='', methods=('GET', 'HEAD'), validate=None, **kw):
 
         conditions = {}
         if methods:
-            conditions['method'] = [methods] if isinstance(methods, (str, type(u''))) else methods
+            conditions['method'] = [methods] if isinstance(methods, str) else methods
 
         if validate:
             conditions['function'] = lambda params, match_dict: validate(params['request'], match_dict)
