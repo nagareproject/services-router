@@ -1,7 +1,7 @@
 # Encoding: utf-8
 
 # --
-# Copyright (c) 2008-2023 Net-ng.
+# Copyright (c) 2008-2024 Net-ng.
 # All rights reserved.
 #
 # This software is licensed under the BSD License, as described in
@@ -9,9 +9,10 @@
 # this distribution.
 # --
 
-from nagare.services import plugin
 import routes
 from webob.exc import HTTPNotFound
+
+from nagare.services import plugin
 
 
 class Router(plugin.Plugin):
